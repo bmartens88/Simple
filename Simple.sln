@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2B1A9E78
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Domain", "src\Simple.Domain\Simple.Domain.csproj", "{DBA49CBC-47D1-483D-B473-85131E535509}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Domain.UnitTests", "Simple.Domain.UnitTests\Simple.Domain.UnitTests.csproj", "{29DA7931-EC5C-4099-A66B-14247D922401}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Domain.UnitTests", "tests\Simple.Domain.UnitTests\Simple.Domain.UnitTests.csproj", "{29DA7931-EC5C-4099-A66B-14247D922401}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
