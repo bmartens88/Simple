@@ -45,6 +45,31 @@ public sealed class TodoItemTests
         todoItem.Description.Should().Be(Description);
     }
 
+    [Fact]
+    public void Create_ShouldGenerateId_WhenNoIdIsProvided()
+    {
+        // Act
+        var todoItem = CreateTodoItem();
+        
+        // Assert
+        todoItem.Id.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void Create_ShouldUseId_WhenIdIsProvided()
+    {
+        // Arrange
+        var guid = Guid.NewGuid();
+        var id = TodoItemId.Create(guid);
+        
+        // Act
+        var todoItem = CreateTodoItem(id: id);
+        
+        // Assert
+        todoItem.Id.Should().Be(id);
+        todoItem.Id.Value.Should().Be(guid);
+    }
+
     [Theory]
     [InlineData(null)]
     [InlineData(
@@ -81,5 +106,27 @@ public sealed class TodoItemTests
         
         // Act
         todoItem.CompleteTodoItem();
+        
+        // Assert
+        todoItem.Completed.Should().BeTrue();
+        todoItem.CompletedOnUtc.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMilliseconds(250));
+    }
+
+    [Fact]
+    public async void CompleteTodoItem_ShouldReturn_WhenItemIsAlreadyCompleted()
+    {
+        // Arrange
+        var todoItem = CreateTodoItem();
+        var utcNow = DateTime.UtcNow;
+        todoItem.CompleteTodoItem();
+        
+        // Act
+        await Task.Delay(1500);
+        todoItem.CompleteTodoItem();
+        
+        // Assert
+        todoItem.Completed.Should().BeTrue();
+        // Even though we waited for a short period of time, the CompletedOnUtc should not have been updated.
+        todoItem.CompletedOnUtc.Should().BeCloseTo(utcNow, TimeSpan.FromMilliseconds(250));
     }
 }
